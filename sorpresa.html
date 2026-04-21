@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Per la mia Persona Speciale</title>
+    <style>
+        /* --- STILE GENERALE (MODIFICA I COLORI QUI SE VUOI) --- */
+        :root {
+            --rosa-chiaro: #fce4ec;
+            --rosa-accento: #f06292;
+            --rosa-scuro: #d81b60;
+            --bianco: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--rosa-chiaro);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #444;
+        }
+
+        /* --- SCHERMATA PASSWORD --- */
+        #password-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--rosa-chiaro);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .login-box {
+            background: var(--bianco);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        input[type="password"] {
+            padding: 12px;
+            border: 2px solid var(--rosa-chiaro);
+            border-radius: 10px;
+            outline: none;
+            width: 200px;
+            font-size: 16px;
+        }
+
+        button.btn-enter {
+            background-color: var(--rosa-accento);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button.btn-enter:hover {
+            background-color: var(--rosa-scuro);
+        }
+
+        /* --- CONTENUTO PRINCIPALE --- */
+        #main-content {
+            display: none; /* Nascosto finché la password è corretta */
+            width: 90%;
+            max-width: 800px;
+            background: var(--bianco);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            margin: 20px;
+        }
+
+        header {
+            background-color: var(--rosa-accento);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        /* --- MENU A SCHEDE (TABS) --- */
+        .tabs {
+            display: flex;
+            background: #fff0f5;
+            border-bottom: 2px solid var(--rosa-chiaro);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--rosa-accento);
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            background-color: var(--rosa-accento);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- STILI SPECIFICI SEZIONI --- */
+        .letter-text {
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        .note-card {
+            background: #fff9fb;
+            border-left: 5px solid var(--rosa-accento);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid var(--rosa-chiaro);
+        }
+
+        iframe {
+            width: 100%;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="password-screen">
+        <div class="login-box">
+            <h2 style="color: var(--rosa-accento)">❤️ Benvenuta ❤️</h2>
+            <p>Inserisci il codice segreto:</p>
+            <input type="password" id="password-input" placeholder="Codice...">
+            <br>
+            <button class="btn-enter" onclick="checkPassword()">Entra</button>
+        </div>
+    </div>
+
+    <div id="main-content">
+        <header>
+            <h1>Ciao Amore mio</h1>
+            <p>Benvenuta nel tuo piccolo spazio speciale.</p>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab-btn active" onclick="openTab(event, 'lettera')">Lettera</button>
+            <button class="tab-btn" onclick="openTab(event, 'musica')">Musica</button>
+            <button class="tab-btn" onclick="openTab(event, 'note')">Note</button>
+            <button class="tab-btn" onclick="openTab(event, 'gallery')">Fiori</button>
+        </nav>
+
+        <div id="lettera" class="tab-content active">
+            <h2>Per Te</h2>
+            <div class="letter-text">
+                <p>Cara [Nome della tua ragazza],</p>
+                <p>Ho creato questo piccolo angolo web perché volevo farti una sorpresa diversa dal solito. Ogni giorno trascorso con te è un regalo...</p>
+                <p>Spero che questo ti faccia sorridere. Ti amo tanto!</p>
+            </div>
+        </div>
+
+        <div id="musica" class="tab-content">
+            <h2>La nostra colonna sonora</h2>
+            <p>Queste canzoni mi fanno pensare a noi:</p>
+            <div id="spotify-container">
+                <p style="color: gray; font-size: 0.9em;">(Qui puoi incollare il player di Spotify seguendo le istruzioni)</p>
+                </div>
+        </div>
+
+        <div id="note" class="tab-content">
+            <h2>Piccoli promemoria</h2>
+            <div class="note-card">✨ Ricordati che sei bellissima, sempre.</div>
+            <div class="note-card">🍎 Mangia qualcosa di buono oggi, non saltare i pasti!</div>
+            <div class="note-card">❤️ Sei la mia persona preferita in tutto il mondo.</div>
+            <div class="note-card">🧸 Se sei stanca, riposati. Io sono qui.</div>
+        </div>
+
+        <div id="gallery" class="tab-content">
+            <h2>Fiori per te</h2>
+            <div class="gallery">
+                <img src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=400" alt="Rose">
+                <img src="https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?w=400" alt="Peonie">
+                <img src="https://images.unsplash.com/photo-1550730411-96df163e904b?w=400" alt="Tulipani">
+                <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=400" alt="Margherite">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- GESTIONE PASSWORD ---
+        function checkPassword() {
+            const input = document.getElementById('password-input').value;
+            
+            // [MODIFICA QUI]: Cambia '1234' con la password che desideri
+            const passwordSegreta = '1234';
+
+            if (input === passwordSegreta) {
+                document.getElementById('password-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+            } else {
+                alert('Codice errato! Riprova, amore ❤️');
+            }
+        }
+
+        // --- GESTIONE SCHEDE ---
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        
+        // Permette di premere "Invio" per la password
+        document.getElementById("password-input").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                checkPassword();
+            }
+        });
+    </script>
+</body>
+</html>
